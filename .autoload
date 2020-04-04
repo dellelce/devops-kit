@@ -1,0 +1,13 @@
+#
+# Created:      030420
+# Description:  autoload file for devopskit
+#
+# vim:syntax=sh
+#
+
+## ENV ##
+
+ export DEVOPS="$PWD"
+
+## EOF ##
+
