@@ -7,6 +7,10 @@ CONSULDOWNLOAD := "https://www.consul.io/downloads.html"
 CONSULVERS = $$(wget -O - -q $(CONSULDOWNLOAD) | awk -f $(ROOT)/mk/consul.awk  )
 CONSULURL = https://releases.hashicorp.com/consul/$(CONSULVERS)/consul_$(CONSULVERS)_linux_amd64.zip
 
+# $HELP$
+# consulbin                  Install consul in local bin directory
+# consulvers                 Print current version from of consul from official website
+
 # "shortcut" to next target
 consulbin: $(ROOT)/bin/consul
 

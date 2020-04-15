@@ -6,6 +6,7 @@ VENV := $(ROOT)/devops-env
 $(VENV)/bin/activate:
 	@python3 -m venv $(VENV) && . $(VENV)/bin/activate && pip install -U pip setuptools
 
+.PHONY: venv
 venv: $(VENV)/bin/activate
 
 venv_test: venv

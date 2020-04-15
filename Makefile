@@ -5,7 +5,7 @@ ROOT=$(PWD)
 # default target: Make sure no specific target is called by mistake
 .PHONY: help
 help:
-	@cat docs/help.txt && echo
+	@for mk in mk/*.mk; do awk -f mk/help.awk $$mk; done
 
 # all "real targets"
 include mk/*.mk

@@ -8,6 +8,9 @@ SSHOPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 TERRAVERS = $$(wget -O - -q $(TERRADOWNLOAD) | awk -f $(ROOT)/mk/terraform.awk  )
 TERRAURL = https://releases.hashicorp.com/terraform/$(TERRAVERS)/terraform_$(TERRAVERS)_linux_amd64.zip
 
+# $HELP$
+# terrabin                   Install latest version of terraform available in bin directory
+
 # "shortcut" to next target
 terrabin: $(ROOT)/bin/terraform
 
