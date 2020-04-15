@@ -1,9 +1,8 @@
-# Web Install Makefile
+# Devops Kit "Core" Makefile
 
 ROOT=$(PWD)
-VENV := devops-env
 
-# default target: help!
+# default target: Make sure no specific target is called by mistake
 .PHONY: help
 help:
 	@cat docs/help.txt && echo
