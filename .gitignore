@@ -2,3 +2,4 @@ tmp
 devops-env
 bin
 cache
+configs/
