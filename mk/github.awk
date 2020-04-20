@@ -3,6 +3,9 @@
 #
 # 280718 Created: meant to be a generic filter for github
 #
+# this awk filter comes from my srcget project:
+#          https://github.com/dellelce/srcget 
+#
 
 ### MAIN RULE ###
 
@@ -11,7 +14,6 @@ BEGIN \
   state = 0
   vers = ""
   opt_nonmatch=ENVIRON["opt_nonmatch"]
-  print ""
 }
 
 # custom rules
@@ -22,14 +24,12 @@ state == 1 { next } # found our "release" skip everything else
 /Pre-release/ \
 {
   state = 2
-  print "#DEBUG: skipped Pre-release"
   next
 }
 
 state == 2 && /Latest release/ \
 {
   state = 0
-  print "#DEBUG: found Latest"
   next
 }
 
@@ -40,42 +40,34 @@ state == 0 && $0 ~ ext && $0 ~ /[0-9]\./ && /\/archive\// && $0 !~ /-windows/ &&
   line=$0
   gsub(/"/, " ", line);
   cnt = split(line, line_a, " ");
-  print "# DEBUG: state = " state " cnt = " cnt " line = " line
 
   for (idx in line_a)
   {
     item = line_a[idx]
-    print "# DEBUG: item = "item " idx = "idx
 
-    #
     if (cnt == 8 && /systemd/)
     {
-      print "#DEBUG: temp fix to systemd tag with slash"
       next
     }
 
     if (item ~ ext)
     {
       vers = item
-      print "# DEBUG: "vers " ext = "ext " idx = "idx
 
       if (vers ~ /-alpha/)
       {
-        print "# DEBUG: filter out alphas!"
         vers = ""
         next
       }
 
       if (vers ~ /-rc/ || vers ~ /RC/)
       {
-        print "# DEBUG: filter out rc"
         vers = ""
         next
       }
 
       if (vers ~ /beta/)
       {
-        print "# DEBUG: filter out beta"
         vers = ""
         next
       }
@@ -92,7 +84,7 @@ state == 0 && $0 ~ ext && $0 ~ /[0-9]\./ && /\/archive\// && $0 !~ /-windows/ &&
 
 END \
 {
-  if (vers != "") print "latest="vers
+  print vers
 }
 
 ### EOF ###
