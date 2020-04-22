@@ -3,3 +3,4 @@ devops-env
 bin
 cache
 configs/
+az-env/

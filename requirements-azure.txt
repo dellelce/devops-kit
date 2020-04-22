@@ -1,0 +1,7 @@
+azure-devtools
+azure-mgmt-containerservice
+azure-mgmt-compute
+azure-identity
+azure-cli
+
+-r requirements.txt
