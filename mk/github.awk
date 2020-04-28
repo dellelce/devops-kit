@@ -14,6 +14,7 @@ BEGIN \
   state = 0
   vers = ""
   opt_nonmatch=ENVIRON["opt_nonmatch"]
+  if (ext=="") ext="tar.gz"
 }
 
 # custom rules
@@ -44,11 +45,6 @@ state == 0 && $0 ~ ext && $0 ~ /[0-9]\./ && /\/archive\// && $0 !~ /-windows/ &&
   for (idx in line_a)
   {
     item = line_a[idx]
-
-    if (cnt == 8 && /systemd/)
-    {
-      next
-    }
 
     if (item ~ ext)
     {
@@ -84,6 +80,8 @@ state == 0 && $0 ~ ext && $0 ~ /[0-9]\./ && /\/archive\// && $0 !~ /-windows/ &&
 
 END \
 {
+  sub(/^v/, "", vers)
+  sub("."ext, "", vers)
   print vers
 }
 
