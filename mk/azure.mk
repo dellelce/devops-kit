@@ -24,6 +24,3 @@ azure_install: azure
 
 azure_uninstall:
 	@rm -rf $(AZVENV) && git checkout $(AZVENV)
-
-azure_uninstall: azure_uninstall
-
