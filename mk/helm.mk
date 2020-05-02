@@ -12,7 +12,7 @@ HELMVERS = $$(wget -O - -q $(HELMDOWNLOAD) | awk -vext=tar.gz -f $(ROOT)/mk/gith
 HELMURL =  "https://get.helm.sh/helm-v$(HELMVERS)-$(PLATFORM).tar.gz"
 
 # $HELP$
-# helmbin                    Install current version of helm available in bin directory
+# helmbin                    Download and Install current version of helm available in bin directory
 # helmvers                   Print current version of helm from official website
 
 .PHONY: helmbin

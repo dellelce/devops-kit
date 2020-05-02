@@ -8,7 +8,7 @@ VAULTVERS = $$(wget -O - -q $(VAULTDOWNLOAD) | awk -f $(ROOT)/mk/vault.awk  )
 VAULTURL = https://releases.hashicorp.com/vault/$(VAULTVERS)/vault_$(VAULTVERS)_linux_amd64.zip
 
 # $HELP$
-# vaultbin                   Install latest version of vault availab
+# vaultbin                   Download and install latest version of vault
 # vaultvers                  Print version of latest vault available
 
 # "shortcut" to next target

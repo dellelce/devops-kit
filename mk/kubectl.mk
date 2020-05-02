@@ -8,7 +8,7 @@ KUBEVERS = $$(wget -O - -q $(KUBESTABLE) | sed -e 's/v//g')
 KUBEURL = https://storage.googleapis.com/kubernetes-release/release/v$(KUBEVERS)/bin/linux/amd64/kubectl
 
 # $HELP$
-# kubectlbin                 Install current version of kubectl available in bin directory
+# kubectlbin                 Download and install current version of kubectl available in bin directory
 # kubevers                   Print current version of kubectl from official website
 
 # "shortcut" to next target
