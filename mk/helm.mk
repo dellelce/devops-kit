@@ -25,4 +25,6 @@ $(ROOT)/bin/helm:
 # get current version of helm
 .PHONY: helmvers
 helmvers:
-	@echo $(HELMVERS)
+	@echo "helm       " $(HELMVERS)
+
+ALLVERS += helmvers

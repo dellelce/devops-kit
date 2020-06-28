@@ -20,5 +20,6 @@ $(ROOT)/bin/vault:
 
 # test target: get current version of vault
 vaultvers:
-	@echo $(VAULTVERS)
+	@echo "vault      " $(VAULTVERS)
 
+ALLVERS += vaultvers

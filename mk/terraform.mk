@@ -20,7 +20,9 @@ $(ROOT)/bin/terraform:
 
 # test target: get current version of terraform
 terravers:
-	@echo $(TERRAVERS)
+	@echo "terraform  " $(TERRAVERS)
+
+ALLVERS += terravers
 
 init: terrabin
 	@cd $(TERRAHOME) && $(TERRAFORM) init

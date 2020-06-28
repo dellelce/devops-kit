@@ -20,5 +20,6 @@ $(ROOT)/bin/consul:
 
 # test target: get current version of consul
 consulvers:
-	@echo $(CONSULVERS)
+	@echo "consul     " $(CONSULVERS)
 
+ALLVERS += consulvers

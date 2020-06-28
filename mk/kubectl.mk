@@ -20,5 +20,6 @@ $(ROOT)/bin/kubectl:
 
 # test target: get current version of kube
 kubevers:
-	@echo $(KUBEVERS)
+	@echo "kubernetes " $(KUBEVERS)
 
+ALLVERS += kubevers

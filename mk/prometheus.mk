@@ -25,4 +25,6 @@ $(ROOT)/bin/prometheus:
 # get current version of prometheus
 .PHONY: prometheusvers
 prometheusvers:
-	@echo $(PROMETHEUSVERS)
+	@echo "prometheus " $(PROMVERS)
+
+ALLVERS += prometheusvers

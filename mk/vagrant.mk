@@ -20,5 +20,6 @@ $(ROOT)/bin/vagrant:
 
 # test target: get current version of vagrant
 vagrantvers:
-	@echo $(VAGRANTVERS)
+	@echo "vagrant    " $(VAGRANTVERS)
 
+ALLVERS += vagrantvers
