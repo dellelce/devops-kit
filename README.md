@@ -11,7 +11,7 @@ To use the scripts & makefiles the ```.autoload``` and ```.autoload.d``` directo
 
 bash$  cd /path/devops-kit
 
-# Load files in order
+# Load ("source") files in the following order:
 
 bash$   . .autoload
 bash$ for f in .autoload.d/*.sh; do [ -f "$f" ] && . "$f"; done

@@ -6,10 +6,14 @@ TERRADOWNLOAD := "https://www.terraform.io/downloads.html"
 SSHOPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 
 TERRAVERS = $$(wget -O - -q $(TERRADOWNLOAD) | awk -f $(ROOT)/mk/terraform.awk  )
+LTERRAVERS = $$($(ROOT)/bin/terraform version | awk 'FNR == 1 { sub(/^v/, "", $$2); print $$2 } ' )
 TERRAURL = https://releases.hashicorp.com/terraform/$(TERRAVERS)/terraform_$(TERRAVERS)_linux_amd64.zip
 
 # $HELP$
 # terrabin                   Download and install latest version of terraform available in bin directory
+# terravers                  Find latest version of terraform available online
+# localtvers                 Print local version of terraform
+# terraup                    Update terraform to latest version available online
 
 # "shortcut" to next target
 terrabin: $(ROOT)/bin/terraform
@@ -18,9 +22,20 @@ terrabin: $(ROOT)/bin/terraform
 $(ROOT)/bin/terraform:
 	@wget -q -O bin/terraform.zip $(TERRAURL) && cd bin && unzip -q terraform.zip && chmod +x terraform && rm -f terraform.zip
 
-# test target: get current version of terraform
+# test target: get current version of terraform from website
 terravers:
 	@echo "terraform  " $(TERRAVERS)
+
+localtvers:
+	@echo $(LTERRAVERS)
+
+terraupclean:
+	@[ $(LTERRAVERS) != $(TERRAVERS) ] && rm $(ROOT)/bin/terraform
+
+# update terraform:
+#   - delete local binary if local version is different from available online
+#   - download new terraform if previous step executed
+terraup: terraupclean terrabin
 
 ALLVERS += terravers
 
