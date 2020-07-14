@@ -1,6 +1,9 @@
 # Python virtualenv setup
 
-GCVENV := $(ROOT)/gcp-env
+GCVENV   := $(ROOT)/gcp-env
+GSDKURL  := https://cloud.google.com/sdk/docs/quickstart-linux
+GSDKVERS  = $$(wget -q -O - $(GSDKURL) | awk -f mk/gcloudsdk.awk)
+GSDKDL   := https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-$(GSDKVERS)-linux-x86_64.tar.gz
 
 # targets to have the virtualenv configured
 $(GCVENV)/bin/activate:
@@ -15,6 +18,7 @@ $(GCVENV)/bin/activate:
 .PHONY: gcpenv
 gcp: $(GCVENV)/bin/activate
 
+
 gcp_test: gcp
 	@. $(GCVENV)/bin/activate && python -V && pip list
 
@@ -23,3 +27,9 @@ gcp_install: gcp
 
 gcp_uninstall:
 	@rm -rf $(GCVENV) && git checkout $(GCVENV)
+
+gsdkdl:
+	@mkdir -p tmp/gcloud && wget -q -O tmp/gcloud/gloudsdk.tar.gz $(GSDKDL)
+
+gsdkvers:
+	@echo $(GSDKVERS)
