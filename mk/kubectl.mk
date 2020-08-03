@@ -1,6 +1,8 @@
 #
 # This script expects the following variables:
 #      ROOT     
+
+# This variables are both here and in "kubernetes.mk" to allow standalone install of "kubectl"
 KUBEHOME := $(ROOT)/kube
 KUBESTABLE := "https://storage.googleapis.com/kubernetes-release/release/stable.txt"
 
@@ -9,7 +11,6 @@ KUBEURL = https://storage.googleapis.com/kubernetes-release/release/v$(KUBEVERS)
 
 # $HELP$
 # kubectlbin                 Download and install current version of kubectl available in bin directory
-# kubevers                   Print current version of kubectl from official website
 
 # "shortcut" to next target
 kubectlbin: $(ROOT)/bin/kubectl
@@ -17,9 +18,5 @@ kubectlbin: $(ROOT)/bin/kubectl
 # download and "install" kube
 $(ROOT)/bin/kubectl:
 	@wget -q -O bin/kubectl $(KUBEURL) && chmod +x bin/kubectl
-
-# test target: get current version of kube
-kubevers:
-	@echo "kubernetes " $(KUBEVERS)
 
 ALLVERS += kubevers
