@@ -1,6 +1,6 @@
 BEGIN { state = 0 }
 
-/h2 id=\"prometheus\"/ && state == 0 \
+/h2 id="prometheus"/ && state == 0 \
 {
    state = 1
 }
