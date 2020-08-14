@@ -3,8 +3,8 @@
 # $HELP$
 # allvers                    Print version of all modules that can be installed
 
-
-ROOT=$(PWD)
+AWK  := $$( type gawk >/dev/null 2>&1 && echo "gawk" || gawk)
+ROOT  = $(PWD)
 
 # default target: Make sure no specific target is called by mistake
 .PHONY: help

@@ -8,7 +8,7 @@ PROMETHEUSDOWNLOAD := "https://prometheus.io/download/"
 # We only support linux at the moment
 PLATFORM := linux-amd64
 
-PROMVERS = $$(wget -O - -q $(PROMETHEUSDOWNLOAD) | awk -f $(ROOT)/mk/prometheus.awk  )
+PROMVERS = $$(wget -O - -q $(PROMETHEUSDOWNLOAD) | $(AWK) -f $(ROOT)/mk/prometheus.awk  )
 PROMETHEUSURL =  "https://github.com/prometheus/prometheus/releases/download/${PROMVERS}/prometheus-${PROMVERS}.${PLATFORM}.tar.gz"
 
 # $HELP$

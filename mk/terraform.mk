@@ -5,8 +5,8 @@ TERRAHOME := $(ROOT)/terraform
 TERRADOWNLOAD := "https://www.terraform.io/downloads.html"
 SSHOPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 
-TERRAVERS = $$(wget -O - -q $(TERRADOWNLOAD) | awk -f $(ROOT)/mk/terraform.awk  )
-LTERRAVERS = $$($(ROOT)/bin/terraform version | awk 'FNR == 1 { sub(/^v/, "", $$2); print $$2 } ' )
+TERRAVERS = $$(wget -O - -q $(TERRADOWNLOAD) | $(AWK) -f $(ROOT)/mk/terraform.awk  )
+LTERRAVERS = $$($(ROOT)/bin/terraform version | $(AWK) 'FNR == 1 { sub(/^v/, "", $$2); print $$2 } ' )
 TERRAURL = https://releases.hashicorp.com/terraform/$(TERRAVERS)/terraform_$(TERRAVERS)_linux_amd64.zip
 
 # $HELP$

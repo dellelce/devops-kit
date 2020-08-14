@@ -8,7 +8,7 @@ HELMDOWNLOAD := "https://github.com/helm/helm/releases"
 # We only support linux at the moment
 PLATFORM := linux-amd64
 
-HELMVERS = $$(wget -O - -q $(HELMDOWNLOAD) | awk -vext=tar.gz -f $(ROOT)/mk/github.awk  )
+HELMVERS = $$(wget -O - -q $(HELMDOWNLOAD) | $(AWK) -vext=tar.gz -f $(ROOT)/mk/github.awk  )
 HELMURL =  "https://get.helm.sh/helm-v$(HELMVERS)-$(PLATFORM).tar.gz"
 
 # $HELP$

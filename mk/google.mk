@@ -2,7 +2,7 @@
 
 GCVENV   := $(ROOT)/gcp-env
 GSDKURL  := https://cloud.google.com/sdk/docs/quickstart-linux
-GSDKVERS  = $$(wget -q -O - $(GSDKURL) | awk -f mk/gcloudsdk.awk)
+GSDKVERS  = $$(wget -q -O - $(GSDKURL) | $(AWK) -f mk/gcloudsdk.awk)
 GSDKDL   := https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-$(GSDKVERS)-linux-x86_64.tar.gz
 
 # targets to have the virtualenv configured

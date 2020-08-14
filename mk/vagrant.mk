@@ -4,7 +4,7 @@
 VAGRANTHOME := $(ROOT)/vagrant
 VAGRANTDOWNLOAD := "https://www.vagrantup.com/downloads.html"
 
-VAGRANTVERS = $$(wget -O - -q $(VAGRANTDOWNLOAD) | awk -f $(ROOT)/mk/vagrant.awk  )
+VAGRANTVERS = $$(wget -O - -q $(VAGRANTDOWNLOAD) | $(AWK) -f $(ROOT)/mk/vagrant.awk  )
 VAGRANTURL = https://releases.hashicorp.com/vagrant/$(VAGRANTVERS)/vagrant_$(VAGRANTVERS)_linux_amd64.zip
 
 # $HELP$

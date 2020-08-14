@@ -4,7 +4,7 @@
 CONSULHOME := $(ROOT)/consul
 CONSULDOWNLOAD := "https://www.consul.io/downloads.html"
 
-CONSULVERS = $$(wget -O - -q $(CONSULDOWNLOAD) | awk -f $(ROOT)/mk/consul.awk  )
+CONSULVERS = $$(wget -O - -q $(CONSULDOWNLOAD) | $(AWK) -f $(ROOT)/mk/consul.awk  )
 CONSULURL = https://releases.hashicorp.com/consul/$(CONSULVERS)/consul_$(CONSULVERS)_linux_amd64.zip
 
 # $HELP$
