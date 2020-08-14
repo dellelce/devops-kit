@@ -4,8 +4,10 @@
 VAULTHOME := $(ROOT)/vault
 VAULTDOWNLOAD := "https://www.vaultproject.io/downloads/"
 
+PLATFORM := $$( ./mk/platform.sh | tr '-' '_')
+
 VAULTVERS = $$(wget -O - -q $(VAULTDOWNLOAD) | $(AWK) -f $(ROOT)/mk/vault.awk  )
-VAULTURL = https://releases.hashicorp.com/vault/$(VAULTVERS)/vault_$(VAULTVERS)_linux_amd64.zip
+VAULTURL = https://releases.hashicorp.com/vault/$(VAULTVERS)/vault_$(VAULTVERS)_$(PLATFORM).zip
 
 # $HELP$
 # vaultbin                   Download and install latest version of vault
