@@ -3,7 +3,6 @@
 #      ROOT     
 TERRAHOME := $(ROOT)/terraform
 TERRADOWNLOAD := "https://www.terraform.io/downloads.html"
-SSHOPTS := -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 
 TERRAVERS = $$(wget -O - -q $(TERRADOWNLOAD) | $(AWK) -f $(ROOT)/mk/terraform.awk  )
 LTERRAVERS = $$($(ROOT)/bin/terraform version | $(AWK) 'FNR == 1 { sub(/^v/, "", $$2); print $$2 } ' )
@@ -59,6 +58,3 @@ show: terrabin
 
 console: terrabin
 	@cd terraform && $(TERRAFORM) console
-
-ssh: terrabin
-	@ssh -i terraform/ec2.key $(SSHOPTS) $(SYSUSER)@$(ip)
