@@ -31,6 +31,9 @@ localtvers:
 terraupclean:
 	@[ $(LTERRAVERS) != $(TERRAVERS) ] && rm $(ROOT)/bin/terraform
 
+terraurl:
+	@echo $(TERRAURL)
+
 # update terraform:
 #   - delete local binary if local version is different from available online
 #   - download new terraform if previous step executed
