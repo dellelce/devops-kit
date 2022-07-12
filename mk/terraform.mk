@@ -2,9 +2,10 @@
 # This script expects the following variables:
 #      ROOT     
 TERRAHOME := $(ROOT)/terraform
-TERRADOWNLOAD := "https://www.terraform.io/downloads.html"
+TERRADOWNLOAD := "https://www.terraform.io/downloads"
 
-TERRAVERS = $$(wget -O - -q $(TERRADOWNLOAD) | $(AWK) -f $(ROOT)/mk/terraform.awk  )
+# TODO: Review use of --no-check-certificate (not secure)
+TERRAVERS = $$(wget -O - --no-check-certificate -q $(TERRADOWNLOAD) | $(AWK) -f $(ROOT)/mk/terraform.awk  )
 LTERRAVERS = $$($(ROOT)/bin/terraform version | $(AWK) 'FNR == 1 { sub(/^v/, "", $$2); print $$2 } ' )
 TERRAURL = https://releases.hashicorp.com/terraform/$(TERRAVERS)/terraform_$(TERRAVERS)_linux_amd64.zip
 

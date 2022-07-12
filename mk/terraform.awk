@@ -1,21 +1,23 @@
-BEGIN { state = 0; }
 
-state == 0 && tolower($0) ~ /latest version/ { state = 1; }
+BEGIN { version = ""; state = 0; }
 
-state == 1 && $0 ~ /[0-9]+\.[0-9]+\.[0-9]+/ \
+state == 0 && $0 ~ /[0-9]+\.[0-9]+\.[0-9]+/ \
  {
-   gsub(/[()]/, " ");
+   gsub(/[()<>]/, " ");
 
    split($0, ver_a, " ");
 
    for (i in ver_a)
    {
-     if (ver_a[i] ~ /[0-9]+\.[0-9]+\.[0-9]+/)
+     if (state == 0 && ver_a[i] ~ /style_version/) { state = 1; continue; }
+
+     if (state == 1 && ver_a[i] ~ /[0-9]+\.[0-9]+\.[0-9]+/)
      {
-       print ver_a[i]
+       version=ver_a[i]
+       state = 2 # state = 2: completed version search
      }
    }
 
-   state = 2
  }
 
+END { if (state == 2) { print version; }; }
