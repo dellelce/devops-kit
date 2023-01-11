@@ -1,10 +1,10 @@
 #
 # This script expects the following variables:
-#      ROOT     
+#      ROOT
 VAGRANTHOME := $(ROOT)/vagrant
-VAGRANTDOWNLOAD := "https://www.vagrantup.com/downloads.html"
+VAGRANTDOWNLOAD := "https://developer.hashicorp.com/vagrant/downloads"
 
-VAGRANTVERS = $$(wget -O - -q $(VAGRANTDOWNLOAD) | $(AWK) -f $(ROOT)/mk/vagrant.awk  )
+VAGRANTVERS = $$(wget -O - -q $(VAGRANTDOWNLOAD) | $(AWK) -f $(ROOT)/mk/hashicorp-downloads.awk  )
 VAGRANTURL = https://releases.hashicorp.com/vagrant/$(VAGRANTVERS)/vagrant_$(VAGRANTVERS)_linux_amd64.zip
 
 # $HELP$

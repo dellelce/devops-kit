@@ -1,11 +1,11 @@
 #
 # This script expects the following variables:
-#      ROOT     
+#      ROOT
 PACKERHOME := $(ROOT)/packer
-PACKERDOWNLOAD := "https://www.packer.io/downloads"
+PACKERDOWNLOAD := "https://developer.hashicorp.com/packer/downloads"
 
 # TODO: Review use of --no-check-certificate (not secure)
-PACKERVERS = $$(wget -O - --no-check-certificate -q $(PACKERDOWNLOAD) | $(AWK) -f $(ROOT)/mk/packer.awk  )
+PACKERVERS = $$(wget -O - --no-check-certificate -q $(PACKERDOWNLOAD) | $(AWK) -f $(ROOT)/mk/hashicorp-downloads.awk  )
 LPACKERVERS = $$($(ROOT)/bin/packer version | $(AWK) 'FNR == 1 { sub(/^v/, "", $$2); print $$2 } ' )
 PACKERURL = https://releases.hashicorp.com/packer/$(PACKERVERS)/packer_$(PACKERVERS)_linux_amd64.zip
 

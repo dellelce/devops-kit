@@ -1,12 +1,12 @@
 #
 # This script expects the following variables:
-#      ROOT     
+#      ROOT
 VAULTHOME := $(ROOT)/vault
-VAULTDOWNLOAD := "https://www.vaultproject.io/downloads/"
+VAULTDOWNLOAD := "https://developer.hashicorp.com/vault/downloads"
 
 PLATFORM := $$( ./mk/platform.sh | tr '-' '_')
 
-VAULTVERS = $$(wget -O - -q $(VAULTDOWNLOAD) | $(AWK) -f $(ROOT)/mk/vault.awk  )
+VAULTVERS = $$(wget -O - -q $(VAULTDOWNLOAD) | $(AWK) -f $(ROOT)/mk/hashicorp-downloads.awk  )
 VAULTURL = https://releases.hashicorp.com/vault/$(VAULTVERS)/vault_$(VAULTVERS)_$(PLATFORM).zip
 
 # $HELP$
