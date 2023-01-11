@@ -4,7 +4,7 @@
 # 280718 Created: meant to be a generic filter for github
 #
 # this awk filter comes from my srcget project:
-#          https://github.com/dellelce/srcget 
+#          https://github.com/dellelce/srcget
 #
 
 ### MAIN RULE ###
@@ -28,7 +28,7 @@ state == 1 { next } # found our "release" skip everything else
   next
 }
 
-state == 2 && /Latest release/ \
+state == 2 && /Latest/ \
 {
   state = 0
   next
@@ -36,15 +36,62 @@ state == 2 && /Latest release/ \
 
 opt_nonmatch != "" && $0 ~ opt_nonmatch { next; }
 
-state == 0 && $0 ~ ext && $0 ~ /[0-9]\./ && /\/archive\// && $0 !~ /-windows/ && $0 !~ /-dev/ && vers == "" \
+# "new" style
+state == 0 && /Link--primary/ \
 {
   line=$0
   gsub(/"/, " ", line);
+  gsub(/[<>]/, " ", line);
   cnt = split(line, line_a, " ");
 
   for (idx in line_a)
   {
     item = line_a[idx]
+
+    if (item  ~ /[0-9]\./ && item ~ /\/tag/)
+    {
+      item_cnt = split(item, item_a, "/")
+
+      cand_vers = item_a[item_cnt]
+      sub(/^v/, "", cand_vers)
+
+      if (cand_vers ~ /-rc/ || cand_vers ~ /beta/ || cand_vers ~ /alpha/)
+      {
+         continue
+      }
+
+      if (cand_vers  ~ /[0-9]\./)
+      {
+         if (cand_vers ~ /-/)
+         {
+             split(cand_vers, cv_a, "-")
+             cand_vers = cv_a[2]
+         }
+
+         # candidate version passed checks
+         vers = cand_vers
+         state = 1
+      }
+    }
+ }
+}
+
+# "old" style
+state == 0 && $0 ~ ext && $0 ~ /[0-9]\./ && /\/archive\// && $0 !~ /-windows/ && $0 !~ /-dev/ && vers == "" \
+{
+  line=$0
+  gsub(/"/, " ", line);
+  gsub(/[<>]/, " ", line);
+  cnt = split(line, line_a, " ");
+
+  for (idx in line_a)
+  {
+    item = line_a[idx]
+
+    if (cnt == 8 && /systemd/)
+    {
+      next
+    }
 
     if (item ~ ext)
     {
