@@ -1,8 +1,8 @@
 #
 # This script expects the following variables:
-#      ROOT     
+#      ROOT
 CONSULHOME := $(ROOT)/consul
-CONSULDOWNLOAD := "https://www.consul.io/downloads.html"
+CONSULDOWNLOAD := "https://developer.hashicorp.com/consul/downloads"
 
 CONSULVERS = $$(wget -O - -q $(CONSULDOWNLOAD) | $(AWK) -f $(ROOT)/mk/consul.awk  )
 CONSULURL = https://releases.hashicorp.com/consul/$(CONSULVERS)/consul_$(CONSULVERS)_linux_amd64.zip

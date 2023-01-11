@@ -1,29 +1,23 @@
-BEGIN { state = 0 }
 
-/latest version of Consul/ && state == 0 {
-   state = 1
-}
+BEGIN { version = ""; state = 0; }
 
-state == 1 \
-{
-   gsub(/[<>()]/, " ")
-   line=$0
+state == 0 && /latest/ && $0 ~ /[0-9]+\.[0-9]+\.[0-9]+/ \
+ {
+   gsub(/[()<>"]/, " ");
 
-   pos = 0
-   cnt = split(line, line_a)
+   split($0, ver_a, " ");
 
-   while (pos <= cnt)
+   for (i = 0; i <= length(ver_a); i+=1)
    {
-      val=line_a[pos]
+     if (state == 0 && ver_a[i] ~ /update/) { state = 1; continue; }
 
-      if (state == 1 && val == "latest") state = 2
-
-      if (state == 2 && val ~ /[0-9]+\.[0-9]/)
-      { 
-        print val
-        state = 3
-      }
-
-      pos += 1
+     if (state == 1 && ver_a[i] ~ /[0-9]+\.[0-9]+\.[0-9]+/)
+     {
+       version=ver_a[i]
+       state = 2
+     }
    }
-}
+
+ }
+
+END { if (state == 2) { sub(/^v/, "", version); print version; }; }
