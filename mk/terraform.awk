@@ -1,24 +1,24 @@
 
-BEGIN { version = ""; state = 0; }
+BEGIN { version = ""; }
 
-state == 0 && $0 ~ /[0-9]+\.[0-9]+\.[0-9]+/ \
+version == "" && $0 ~ /[0-9]+\.[0-9]+\.[0-9]+/ \
  {
    gsub(/[()<>"]/, " ");
 
-   split($0, ver_a, " ");
+   cnt = split($0, ver_a, " ");
 
-   for (i = 0; i <= length(ver_a); i+=1)
+   for (i = 0; i <= cnt; i+=1)
    {
-     if (state == 0 && ver_a[i] ~ /download/) { state = 1; continue; }
-     if (state == 1 && ver_a[i] ~ /terraform/) { state = 2; continue; }
-
-     if (state == 2 && ver_a[i] ~ /[0-9]+\.[0-9]+\.[0-9]+/)
+     if (ver_a[i] ~ /[0-9]+\.[0-9]+\.[0-9]+/ && version=="")
      {
-       version=ver_a[i]
-       state = 3 # state = 3: completed version search
+       proposed_version=ver_a[i]
+     }
+
+     if (ver_a[i] == "latest" && proposed_version != "")
+     {
+       version = proposed_version
      }
    }
-
  }
 
-END { if (state == 3) { sub(/^v/,"",version); print version; }; }
+END { if (version != "") { sub(/^v/,"",version); print version; }; }
