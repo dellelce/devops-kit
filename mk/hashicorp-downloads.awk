@@ -1,23 +1,25 @@
 
-BEGIN { version = ""; state = 0; }
+BEGIN { version = ""; }
 
-state == 0 && /latest/ && $0 ~ /[0-9]+\.[0-9]+\.[0-9]+/ \
+version == "" && $0 ~ /[0-9]+\.[0-9]+\.[0-9]+/ \
  {
    gsub(/[()<>"]/, " ");
 
-   split($0, ver_a, " ");
+   cnt = split($0, ver_a, " ");
 
-   for (i = 0; i <= length(ver_a); i+=1)
+   for (i = 0; i <= cnt; i+=1)
    {
-     if (state == 0 && ver_a[i] ~ /update/) { state = 1; continue; }
-
-     if (state == 1 && ver_a[i] ~ /[0-9]+\.[0-9]+\.[0-9]+/)
+     if (ver_a[i] ~ /[0-9]+\.[0-9]+\.[0-9]+/ && version=="")
      {
-       version=ver_a[i]
-       state = 2
+       proposed_version=ver_a[i]
+     }
+
+     if (ver_a[i] == "latest" && proposed_version != "")
+     {
+       version = proposed_version
+       next
      }
    }
-
  }
 
-END { if (state == 2) { sub(/^v/, "", version); print version; }; }
+END { if (version != "") { sub(/^v/,"",version); print version; }; }
